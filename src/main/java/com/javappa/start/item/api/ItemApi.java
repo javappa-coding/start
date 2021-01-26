@@ -2,7 +2,6 @@ package com.javappa.start.item.api;
 
 import com.javappa.start.item.api.request.ItemRequest;
 import com.javappa.start.item.api.response.ItemResponse;
-import com.javappa.start.item.domain.Item;
 import com.javappa.start.item.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
