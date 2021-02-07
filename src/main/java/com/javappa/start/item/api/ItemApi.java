@@ -26,4 +26,12 @@ public class ItemApi {
         ItemResponse itemResponse = itemService.create(itemRequest);
         return new ResponseEntity<>(itemResponse, HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    @ApiOperation("Find item")
+    public ResponseEntity<ItemResponse> find(@PathVariable Long id) {
+        ItemResponse itemResponse = itemService.find(id);
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    }
+
 }

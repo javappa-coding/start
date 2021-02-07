@@ -22,4 +22,9 @@ public class ItemService {
         Item item = itemRepository.save(itemMapper.toItem(itemRequest));
         return itemMapper.toItemResponse(item);
     }
+
+    public ItemResponse find(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(RuntimeException::new);
+        return itemMapper.toItemResponse(item);
+    }
 }
