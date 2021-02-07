@@ -24,7 +24,7 @@ public class ItemApi {
     @ApiOperation("Create item")
     public ResponseEntity<ItemResponse> create(@RequestBody ItemRequest itemRequest) {
         ItemResponse itemResponse = itemService.create(itemRequest);
-        return new ResponseEntity<>(itemResponse, HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemResponse);
     }
 
     @GetMapping("/{id}")
