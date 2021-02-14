@@ -3,7 +3,7 @@ package com.javappa.start.item.domain;
 public class Item {
 
     private Long id;
-    private final String name;
+    private String name;
 
     public Item(String name) {
         this.name = name;
@@ -15,6 +15,10 @@ public class Item {
 
     public Long getId() {
         return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getName() {

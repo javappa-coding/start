@@ -14,14 +14,20 @@ public class ItemRepository {
     protected long counter = 1;
 
     public Item save(Item entity) {
-        setId(entity);
+        setData(entity);
         return entity;
     }
 
-    private Item setId(Item entity) {
-        entity.setId(counter);
-        map.put(counter, entity);
-        counter++;
+    private Item setData(Item entity) {
+        if(entity.getId() != null) {
+            map.put(entity.getId(), entity);
+        }
+        else {
+            entity.setId(counter);
+            map.put(counter, entity);
+            counter++;
+        }
+
         return entity;
     }
     public Optional<Item> findById(Long id) {

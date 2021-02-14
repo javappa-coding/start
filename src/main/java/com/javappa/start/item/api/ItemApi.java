@@ -1,6 +1,7 @@
 package com.javappa.start.item.api;
 
 import com.javappa.start.item.api.request.ItemRequest;
+import com.javappa.start.item.api.request.UpdateItemRequest;
 import com.javappa.start.item.api.response.ItemResponse;
 import com.javappa.start.item.service.ItemService;
 import io.swagger.annotations.Api;
@@ -34,4 +35,22 @@ public class ItemApi {
         return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
     }
 
+    @PutMapping
+    @ApiOperation("Update item")
+    public ResponseEntity<ItemResponse> update(@RequestBody UpdateItemRequest updateItemRequest) {
+        ItemResponse itemResponse = itemService.update(updateItemRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    }
+
+    @PutMapping("/{id}")
+    @ApiOperation("Update item alternative version")
+    /** Wersja alternatywna. Id przekazujemy w parametrze ścieżki (@PathVariable).
+     *  Jest to nawet bardziej zgodne z ideą REST Api (jawna informacja o identyfikatorze modyfikowanego zasobu),
+     *  natomiast zdarza się, że niektóre komponenty Javascipt wymagają wstawienia id w body.
+     *  Takie podejście (przez body) jest bardziej elastyczne i dlatego pokazaliśmy je na filmie.
+     * */
+    public ResponseEntity<ItemResponse> update(@PathVariable Long id, @RequestBody UpdateItemRequest updateItemRequest) {
+        ItemResponse itemResponse = itemService.updateAlternativeVersion(id, updateItemRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    }
 }
