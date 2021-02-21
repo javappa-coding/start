@@ -9,6 +9,11 @@ import com.javappa.start.item.support.ItemExceptionSupplier;
 import com.javappa.start.item.support.ItemMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class ItemService {
 
@@ -30,6 +35,10 @@ public class ItemService {
         return itemMapper.toItemResponse(item);
     }
 
+    public List<ItemResponse> findAll() {
+        return itemRepository.findAll().stream().map(itemMapper::toItemResponse).collect(Collectors.toList());
+    }
+
     public ItemResponse update(UpdateItemRequest updateItemRequest) {
         Item item = itemRepository.findById(updateItemRequest.getId()).orElseThrow(
                 ItemExceptionSupplier.itemNotFound(updateItemRequest.getId()));
@@ -42,5 +51,10 @@ public class ItemService {
                 ItemExceptionSupplier.itemNotFound(id));
         itemRepository.save(itemMapper.toItem(item, updateItemRequest));
         return itemMapper.toItemResponse(item);
+    }
+
+    public void delete(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow(ItemExceptionSupplier.itemNotFound(id));
+        itemRepository.deleteById(item.getId());
     }
 }

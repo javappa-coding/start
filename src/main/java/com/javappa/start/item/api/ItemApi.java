@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Api(tags = "Items")
 @RequestMapping("/api/items")
@@ -52,5 +54,19 @@ public class ItemApi {
     public ResponseEntity<ItemResponse> update(@PathVariable Long id, @RequestBody UpdateItemRequest updateItemRequest) {
         ItemResponse itemResponse = itemService.updateAlternativeVersion(id, updateItemRequest);
         return ResponseEntity.status(HttpStatus.OK).body(itemResponse);
+    }
+
+    @GetMapping
+    @ApiOperation("Find all items")
+    public ResponseEntity<List<ItemResponse>> findAll() {
+        List<ItemResponse> itemResponses = itemService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponses);
+    }
+
+    @DeleteMapping("/{id}")
+    @ApiOperation("Delete item")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        itemService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

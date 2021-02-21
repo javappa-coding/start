@@ -3,9 +3,7 @@ package com.javappa.start.item.repository;
 import com.javappa.start.item.domain.Item;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public class ItemRepository {
@@ -19,10 +17,9 @@ public class ItemRepository {
     }
 
     private Item setData(Item entity) {
-        if(entity.getId() != null) {
+        if (entity.getId() != null) {
             map.put(entity.getId(), entity);
-        }
-        else {
+        } else {
             entity.setId(counter);
             map.put(counter, entity);
             counter++;
@@ -30,7 +27,16 @@ public class ItemRepository {
 
         return entity;
     }
+
     public Optional<Item> findById(Long id) {
         return Optional.ofNullable(map.get(id));
+    }
+
+    public List<Item> findAll() {
+        return new ArrayList<>(map.values());
+    }
+
+    public void deleteById(Long id) {
+        map.remove(id);
     }
 }
