@@ -1,9 +1,19 @@
 package com.javappa.start.item.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity(name = "items")
 public class Item {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
+
+    public Item() {
+    }
 
     public Item(String name) {
         this.name = name;
